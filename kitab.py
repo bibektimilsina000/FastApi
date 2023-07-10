@@ -4,6 +4,7 @@ from enum import Enum
 
 app = FastAPI()
 
+
 books = {
     "book1": {"name": "book1", "author": "author1"},
     "book2": {"name": "book2", "author": "author2"},
@@ -21,7 +22,7 @@ class Category(str, Enum):
 
 
 @app.get("/")
-async def allBooks(skip_book: Optional[str]=None):
+async def allBooks(skip_book: Optional[str] = None):
     if skip_book:
         new_books = books.copy()
         del new_books[skip_book]
@@ -63,24 +64,15 @@ async def readBook(book_name: str):
 
 @app.post("/")
 async def createBook(book_name: str, author: str):
-    
-     bookslen=len(books)
-     
-     books[f"book{bookslen+1}"]={"name":book_name,"author":author}
-     
-     return books[f"book{bookslen+1}"]
-    
-    
+    bookslen = len(books)
+
+    books[f"book{bookslen+1}"] = {"name": book_name, "author": author}
+
+    return books[f"book{bookslen+1}"]
+
+
 @app.put("/books/{book_name}")
-async def updateBook(book_name,newame: str, author: str):
-    books[book_name]={"name": newame, "author": author}
-    
+async def updateBook(book_name, newame: str, author: str):
+    books[book_name] = {"name": newame, "author": author}
+
     return books[book_name]
-    
-     
-    
-    
-    
-    
-    
-    
